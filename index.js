@@ -12,6 +12,7 @@ const adapterConfig = {
 const sessionConfig = {
   maxAge: 60 * 60 * 24 * 360, // How long they stay signed in?
   secret: process.env.COOKIE_SECRET,
+  sameSite: false,
 };
 
 const PostSchema = require('./lists/Post')
@@ -62,7 +63,7 @@ const authStrategy = keystone.createAuthStrategy({
 module.exports = {
   keystone,
   configureExpress: app => {
-    app.set('trust proxy', 1);
+    app.set('trust proxy', true);
   },
   apps: [
     new GraphQLApp(),
