@@ -18,7 +18,7 @@ const PostSchema = require('./lists/Post')
 const UserSchema = require('./lists/User')
 
 const isLoggedIn = ({ authentication: { item: user } }) => {
-  return true//!!user
+  return !!user
 }
 
 const isAdmin = ({ authentication: { item: user } }) => {
@@ -61,6 +61,9 @@ const authStrategy = keystone.createAuthStrategy({
 
 module.exports = {
   keystone,
+  configureExpress: app => {
+    app.set('trust proxy', 1);
+  },
   apps: [
     new GraphQLApp(),
     new AdminUIApp({
