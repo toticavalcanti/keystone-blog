@@ -27,7 +27,7 @@ const isAdmin = ({ authentication: { item: user } }) => {
 
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
-  cookieSecret: sessionConfig,
+  cookieSecret: sessionConfig.secret,
 })
 
 keystone.createList('Post', {
