@@ -9,6 +9,11 @@ const adapterConfig = {
   mongoUri: process.env.MONGO_URI,
 }
 
+const sessionConfig = {
+  maxAge: 60 * 60 * 24 * 360, // How long they stay signed in?
+  secret: process.env.COOKIE_SECRET,
+};
+
 const PostSchema = require('./lists/Post')
 const UserSchema = require('./lists/User')
 
@@ -22,7 +27,7 @@ const isAdmin = ({ authentication: { item: user } }) => {
 
 const keystone = new Keystone({
   adapter: new Adapter(adapterConfig),
-  cookieSecret: process.env.COOKIE_SECRET,
+  cookieSecret: sessionConfig,
 })
 
 keystone.createList('Post', {
